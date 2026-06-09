@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "datafactory724"
+		},
+		"AzureDataLakeStorage1linkservice_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1linkservice_properties_typeProperties_url": {
+			"value": "https://dbfordbmasterclass.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "sqlserver72.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "sqldatabase7"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "sachin"
+		},
+		"AzureDataLakeStorage689_properties_privateLinkResourceId": {
+			"value": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
+		},
+		"AzureDataLakeStorage689_properties_groupId": {
+			"value": "dfs"
+		}
+	}
+}
