@@ -20,8 +20,6 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFolderPath": "input",
-							"wildcardFileName": "employee.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -121,7 +119,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "source",
+						"referenceName": "DelimitedText1",
 						"type": "DatasetReference"
 					}
 				],
