@@ -2,8 +2,15 @@
 	"name": "triggerstorage",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
-		"pipelines": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Storage Trigger",
+					"type": "PipelineReference"
+				}
+			}
+		],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/input/blobs/",
