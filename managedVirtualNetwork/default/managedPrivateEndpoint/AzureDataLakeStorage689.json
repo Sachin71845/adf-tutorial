@@ -1,0 +1,7 @@
+{
+	"name": "AzureDataLakeStorage689",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass",
+		"groupId": "dfs"
+	}
+}
