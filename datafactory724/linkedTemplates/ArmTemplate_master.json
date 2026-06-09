@@ -39,6 +39,10 @@
 			"type": "string",
 			"defaultValue": "sachin"
 		},
+		"triggerstorage_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
+		},
 		"AzureDataLakeStorage689_properties_privateLinkResourceId": {
 			"type": "string",
 			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
@@ -103,6 +107,9 @@
 					},
 					"AzureSqlDatabase1_properties_typeProperties_userName": {
 						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]"
+					},
+					"triggerstorage_properties_typeProperties_scope": {
+						"value": "[parameters('triggerstorage_properties_typeProperties_scope')]"
 					}
 				}
 			},
