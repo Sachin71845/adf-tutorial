@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
 		},
+		"sqllinkservice_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'sqllinkservice'"
+		},
 		"AzureDataLakeStorage689_properties_privateLinkResourceId": {
 			"type": "string",
 			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
@@ -47,6 +51,18 @@
 			"type": "string",
 			"defaultValue": "sachin"
 		},
+		"sqllinkservice_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqlserver72.database.windows.net"
+		},
+		"sqllinkservice_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldatabase7"
+		},
+		"sqllinkservice_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sachin"
+		},
 		"triggerstorage_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
@@ -54,6 +70,14 @@
 		"trigger1_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
+		},
+		"tumblingwindowtrigger_properties_pipeline_parameters_penddate": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowenddate"
+		},
+		"tumblingwindowtrigger_properties_pipeline_parameters_pstartdate": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowstartdate"
 		}
 	},
 	"variables": {
@@ -167,6 +191,34 @@
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('AzureSqlDatabase1_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sqllinkservice')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('sqllinkservice_properties_typeProperties_server')]",
+					"database": "[parameters('sqllinkservice_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('sqllinkservice_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('sqllinkservice_password')]"
 					}
 				},
 				"connectVia": {
@@ -355,6 +407,51 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1linkservice')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tumblingwindow')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sqllinkservice",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/sqllinkservice')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tumblingwindowdatalake')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "outputtumblingwindow"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
@@ -573,6 +670,102 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/tumbling window')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[cust_date]",
+								"storedProcedureParameters": {
+									"enddate": {
+										"type": "DateTime",
+										"value": {
+											"value": "@pipeline().parameters.penddate",
+											"type": "Expression"
+										}
+									},
+									"startdate": {
+										"type": "DateTime",
+										"value": {
+											"value": "@pipeline().parameters.pstartdate",
+											"type": "Expression"
+										}
+									}
+								},
+								"queryTimeout": "00:30:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "tumblingwindow",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tumblingwindowdatalake",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"penddate": {
+						"type": "string"
+					},
+					"pstartdate": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/tumblingwindow')]",
+				"[concat(variables('factoryId'), '/datasets/tumblingwindowdatalake')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/triggerstorage')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -630,6 +823,41 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Storage Trigger')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tumblingwindowtrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipeline": {
+					"pipelineReference": {
+						"referenceName": "tumbling window",
+						"type": "PipelineReference"
+					},
+					"parameters": {
+						"penddate": "[parameters('tumblingwindowtrigger_properties_pipeline_parameters_penddate')]",
+						"pstartdate": "[parameters('tumblingwindowtrigger_properties_pipeline_parameters_pstartdate')]"
+					}
+				},
+				"type": "TumblingWindowTrigger",
+				"typeProperties": {
+					"frequency": "Hour",
+					"interval": 24,
+					"startTime": "2024-03-01T00:00:00Z",
+					"endTime": "2024-03-06T15:10:00Z",
+					"delay": "00:00:00",
+					"maxConcurrency": 50,
+					"retryPolicy": {
+						"intervalInSeconds": 30
+					},
+					"dependsOn": []
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/tumbling window')]"
 			]
 		}
 	]
