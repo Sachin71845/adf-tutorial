@@ -43,22 +43,6 @@
 			"type": "string",
 			"defaultValue": "sachin"
 		},
-		"triggerstorage_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
-		},
-		"AzureDataLakeStorage689_properties_privateLinkResourceId": {
-			"type": "string",
-			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
-		},
-		"AzureDataLakeStorage689_properties_groupId": {
-			"type": "string",
-			"defaultValue": "dfs"
-		},
-		"trigger1_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
-		},
 		"sqllinkservice_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "sqlserver72.database.windows.net"
@@ -71,6 +55,14 @@
 			"type": "string",
 			"defaultValue": "sachin"
 		},
+		"trigger1_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
+		},
+		"triggerstorage_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
+		},
 		"tumblingwindowtrigger_properties_pipeline_parameters_penddate": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.windowEndTime"
@@ -78,6 +70,14 @@
 		"tumblingwindowtrigger_properties_pipeline_parameters_pstartdate": {
 			"type": "string",
 			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"AzureDataLakeStorage689_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
+		},
+		"AzureDataLakeStorage689_properties_groupId": {
+			"type": "string",
+			"defaultValue": "dfs"
 		},
 		"containerUri": {
 			"type": "string",
@@ -148,11 +148,11 @@
 					"sqllinkservice_properties_typeProperties_userName": {
 						"value": "[parameters('sqllinkservice_properties_typeProperties_userName')]"
 					},
-					"triggerstorage_properties_typeProperties_scope": {
-						"value": "[parameters('triggerstorage_properties_typeProperties_scope')]"
-					},
 					"trigger1_properties_typeProperties_scope": {
 						"value": "[parameters('trigger1_properties_typeProperties_scope')]"
+					},
+					"triggerstorage_properties_typeProperties_scope": {
+						"value": "[parameters('triggerstorage_properties_typeProperties_scope')]"
 					},
 					"tumblingwindowtrigger_properties_pipeline_parameters_penddate": {
 						"value": "[parameters('tumblingwindowtrigger_properties_pipeline_parameters_penddate')]"
