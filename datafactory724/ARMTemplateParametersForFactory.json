@@ -54,10 +54,10 @@
 			"value": "sachin"
 		},
 		"tumblingwindowtrigger_properties_pipeline_parameters_penddate": {
-			"value": "@trigger().outputs.windowenddate"
+			"value": "@trigger().outputs.windowEnddate"
 		},
 		"tumblingwindowtrigger_properties_pipeline_parameters_pstartdate": {
-			"value": "@trigger().outputs.windowstartdate"
+			"value": "@trigger().outputs.windowStartdate"
 		}
 	}
 }

@@ -73,11 +73,11 @@
 		},
 		"tumblingwindowtrigger_properties_pipeline_parameters_penddate": {
 			"type": "string",
-			"defaultValue": "@trigger().outputs.windowenddate"
+			"defaultValue": "@trigger().outputs.windowEnddate"
 		},
 		"tumblingwindowtrigger_properties_pipeline_parameters_pstartdate": {
 			"type": "string",
-			"defaultValue": "@trigger().outputs.windowstartdate"
+			"defaultValue": "@trigger().outputs.windowStartdate"
 		}
 	},
 	"variables": {
