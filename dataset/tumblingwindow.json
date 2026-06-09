@@ -1,0 +1,12 @@
+{
+	"name": "tumblingwindow",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sqllinkservice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
