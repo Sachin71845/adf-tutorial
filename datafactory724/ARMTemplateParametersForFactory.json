@@ -37,6 +37,9 @@
 		},
 		"AzureDataLakeStorage689_properties_groupId": {
 			"value": "dfs"
+		},
+		"trigger1_properties_typeProperties_scope": {
+			"value": "/subscriptions/a2f028cd-ef54-4d18-9a2b-a0491f537f5a/resourceGroups/databricsmasterclass/providers/Microsoft.Storage/storageAccounts/dbfordbmasterclass"
 		}
 	}
 }
