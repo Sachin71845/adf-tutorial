@@ -9,8 +9,8 @@
 				"type": "PipelineReference"
 			},
 			"parameters": {
-				"penddate": "@trigger().outputs.windowenddate",
-				"pstartdate": "@trigger().outputs.windowstartdate"
+				"penddate": "@trigger().outputs.windowEnddate",
+				"pstartdate": "@trigger().outputs.windowStartdate"
 			}
 		},
 		"type": "TumblingWindowTrigger",
