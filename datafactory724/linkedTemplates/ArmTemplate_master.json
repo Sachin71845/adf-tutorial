@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "datafactory724"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
 		"AzureDataLakeStorage1linkservice_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1linkservice'"
@@ -14,6 +18,10 @@
 		"AzureSqlDatabase1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dbfordbmasterclass.dfs.core.windows.net/"
 		},
 		"AzureDataLakeStorage1linkservice_properties_typeProperties_url": {
 			"type": "string",
@@ -66,6 +74,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
 					"AzureDataLakeStorage1linkservice_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1linkservice_accountKey')]"
 					},
@@ -77,6 +88,9 @@
 					},
 					"AzureDataLakeStorage689_properties_groupId": {
 						"value": "[parameters('AzureDataLakeStorage689_properties_groupId')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
 					"AzureDataLakeStorage1linkservice_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1linkservice_properties_typeProperties_url')]"

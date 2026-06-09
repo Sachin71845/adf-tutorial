@@ -5,11 +5,17 @@
 		"factoryName": {
 			"value": "datafactory724"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1linkservice_accountKey": {
 			"value": ""
 		},
 		"AzureSqlDatabase1_password": {
 			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://dbfordbmasterclass.dfs.core.windows.net/"
 		},
 		"AzureDataLakeStorage1linkservice_properties_typeProperties_url": {
 			"value": "https://dbfordbmasterclass.dfs.core.windows.net/"
